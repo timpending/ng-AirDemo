@@ -1,0 +1,40 @@
+.title {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-control {
+  width: 33%;
+  margin: 1% auto;
+}
+
+.panel {
+  border-color: #ddd;
+  background-color: lightblue;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  box-shadow: 0 3px 3px rgba(0,0,0,.15);
+}
+.panel img {
+  height: 300px;
+  width: 200px;
+  border-radius: 5px;
+  margin: 10px auto;
+}
+
+.panel .content {
+  display: inline-block;
+  font-size: 1.25em;
+  font-weight: bolder;
+  text-align: center;
+  margin-left: 20%;
+  margin-top: 50%
+}
+
+.container{
+  justify-content: center;
+}
+
+.no-bg {
+  background-color: transparent;
+}

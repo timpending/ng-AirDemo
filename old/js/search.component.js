@@ -47,50 +47,50 @@
         vm.ba = {}
         vm.accom = {}
 
-        vm.searchForProperty = () => {
-          if (vm.searchAddress && vm.searchZip) {
-            // Builds the API Query URL based on given parameters
-            createAPIURL();
-            console.log('url: ', vm.queryURL);
-            // Hits the API
-            // $http.get(vm.queryURL).then( function (response) {
-            //   let results = response.data
-            //   storeResults(results);
-            // })
-            // Saved Search Results for 76 Lincoln Street
-            // $http.get('../sample.json').then(function(response){
-            //   let results = response.data
-            //   storeResults(results);
-            // })
-          } else {
-            console.log('please enter a value');
+          vm.searchForProperty = () => {
+            if (vm.searchAddress && vm.searchZip) {
+              // Builds the API Query URL based on given parameters
+              createAPIURL();
+              console.log('url: ', vm.queryURL);
+              // Hits the API
+              // $http.get(vm.queryURL).then( function (response) {
+              //   let results = response.data
+              //   storeResults(results);
+              // })
+              // Saved Search Results for 76 Lincoln Street
+              // $http.get('../sample.json').then(function(response){
+              //   let results = response.data
+              //   storeResults(results);
+              // })
+            } else {
+              console.log('please enter a value');
+            }
           }
-        }
 
-        function createAPIURL() {
-          vm.urlAddress = vm.searchAddress.replace(/\s+/g, '%20').replace(/#/g, "%23");
-          vm.queryURL = `${apiURL}&address=${vm.urlAddress}&zipcode=${vm.searchZip}`
-          if (vm.searchBR){
-            vm.queryURL += `&bedrooms=${vm.searchBR}`
+          function createAPIURL() {
+            vm.urlAddress = vm.searchAddress.replace(/\s+/g, '%20').replace(/#/g, "%23");
+            vm.queryURL = `${apiURL}&address=${vm.urlAddress}&zipcode=${vm.searchZip}`
+            if (vm.searchBR){
+              vm.queryURL += `&bedrooms=${vm.searchBR}`
+            }
+            if(vm.searchBA){
+              vm.queryURL += `&bathrooms=${vm.searchBA}`
+            }
+            if (vm.searchAccom) {
+              vm.queryURL += `&accomodates=${vm.searchAccom}`
+            }
+            console.log(vm.queryURL);
           }
-          if(vm.searchBA){
-            vm.queryURL += `&bathrooms=${vm.searchBA}`
-          }
-          if (vm.searchAccom) {
-            vm.queryURL += `&accomodates=${vm.searchAccom}`
-          }
-          console.log(vm.queryURL);
-        }
 
-        function storeResults(data) {
-          vm.results.property_details = data.property_details;
-          vm.results.comps = data.comps // array
-          vm.results.occ_predicted = data.occ_predicted; // obj with year objects
-          vm.results.revenue_potential = data.revenue_potential; // obj with year objects
-          vm.results.adr_predicted = data.adr_predicted;  // obj with year objects
-          console.log(vm.results);
+          function storeResults(data) {
+            vm.results.property_details = data.property_details;
+            vm.results.comps = data.comps // array
+            vm.results.occ_predicted = data.occ_predicted; // obj with year objects
+            vm.results.revenue_potential = data.revenue_potential; // obj with year objects
+            vm.results.adr_predicted = data.adr_predicted;  // obj with year objects
+            console.log(vm.results);
+          }
         }
-      }
 
 
 }());
