@@ -28,6 +28,7 @@ app.service('AddressSearchService', function($http){
       let end = "&key=AIzaSyBdTlnuIm3BaESwJbfcIpbACvsgRh21UXg";
       console.log(gMapsBaseURL+middle+end);
       return `${gMapsBaseURL}${middle}${end}`
-    }
+    },
+
   }
 })

@@ -21,6 +21,20 @@ app.controller('SearchController', function($scope, $http, AddressSearchService,
     $scope.view.current.image = AddressSearchService.getCurrentStreetViewImg(AddressSearchService.results);
     $scope.view.current.display = true;
   }
+  $scope.getAverage = function(obj) {
+    let total = 0;
+    let count = 0;
+    for (let year in obj){
+      for (let month in obj[year]) {
+        if (!isNaN(obj[year][month])){
+          count++
+          total+=obj[year][month];
+          }
+        }
+      }
+      let average = (total / count);
+      return average
+    }
 })
 
 // gMaps StreetView URL: https://maps.googleapis.com/maps/api/streetview?size=600x300&location=39.717953,-104.985879&key=AIzaSyBdTlnuIm3BaESwJbfcIpbACvsgRh21UXg
