@@ -1,16 +1,6 @@
 app.service('AddressSearchService', function($http){
   return {
-    query: function(movie) {
-      var movie = movie.movie
-      return $http.get('http://www.omdbapi.com/?s='+movie)
-    },
   results: {},
-  singleMovie: function(id){
-    return $http.get('http://www.omdbapi.com/?i='+id).then(function(data){
-      return data
-    })
-  },
-  movie: {},
   address: {},
   searchForProperty: function(url) {
     // return $http.get(url);
@@ -32,5 +22,12 @@ app.service('AddressSearchService', function($http){
       }
       return queryURL
     },
+    getCurrentStreetViewImg: function (addressObj) {
+      let gMapsBaseURL = "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=";
+      let middle = `${addressObj.property_details.address.replace(/\s+/g, '%20').replace(/#/g, "%23")}%20${addressObj.property_details.zipcode}`
+      let end = "&key=AIzaSyBdTlnuIm3BaESwJbfcIpbACvsgRh21UXg";
+      console.log(gMapsBaseURL+middle+end);
+      return `${gMapsBaseURL}${middle}${end}`
+    }
   }
 })

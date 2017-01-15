@@ -9,10 +9,10 @@
     <base href="/">
   </head>
   <body ng-controller='SearchController'>
-      <div class='title' >
+      <div class='title'>
         <h1>Rentalizer Demo</h1>
           <div class='lead'>
-              <p>Input your address to find information about yours and comparable AirBnb rentals</p>
+              <p>Input your address to find information about yours and comparable Airbnb rentals</p>
           </div>
           <form ng-model='searchAddress'>
             <label class='hidden' for='name'></label>
@@ -24,28 +24,63 @@
             <input class='btn btn-info' type='button' ng-click='submitSearch()' value='Find It'>
           </form>
           <div ng-if="view.error"><p>{{view.error}}</p></div>
+          <input class='btn btn-warning' type='button' ng-click="showResults()" value='Show results'>
         </div>
 
           <hr>
 
-          <div class="container">
-            <input class='btn btn-warning' type='button' ng-click="showResults()" value='Show results'>
+          <div class="container" ng-if="view.current.display">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3>Rentalizer Results</h3>
+              </div>
 
-            <div ng-repeat='prop in view.data.comps'>
-              <div class='col-md-6'>
-                <div class='panel'>
-                  <div class='col-md-6'>
-                    <p>BA: {{prop.bathrooms}}</p>
-                    <p>URL: {{prop.url}}</p>
-                    <p>BEDs: {{prop.bedrooms}}</p>
-                    <p>ACC: {{prop.accommodates}}</p>
-                    <p>GEO: {{prop.lat}} , {{prop.long}}</p>
-                    <p>UID: {{prop.prop_id}}</p>
-                    <p>Distance: {{prop.distance_meters}} m</p>
+              <div class="panel-body">
+                  <div class="row">
+                    <div class="center col-md-8">
+                      <h4>Address: {{view.current.property_details.address}} Zipcode: {{view.current.property_details.zipcode}} </h4>
+                      <img src={{view.current.image}} />
+                    </div>
+                    <div class='col-md-4'>
+                      <p>Coords: {{view.current.property_details.lat}}, {{view.current.property_details.lng}}</p>
+                      <p>Zestimate: {{view.current.property_details.zestimate}}</p>
+                      <p>Current Bathroom: {{view.current.property_details.bathrooms}}</p>
+                      <p>Current Bedrooms: {{view.current.property_details.bedrooms}}</p>
+                      <p>Annual Project Revenue: {{view.current.revenue_potential.ltm | currency: "$":0 }}</p>
+                      <p>Predicted Occupancy Percentage: {{view.current.occ_predicted.ltm | number:0}}%</p>
+                      <p>Average Comparable Day Rate: {{view.current.adr_predicted.ltm | currency: "$"}}</p>
+                    </div>
                   </div>
                 </div>
+          </div>
+            <br>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3>Comparable Properties</h3>
+                </div>
+                <div class="panel-body">
+                  <div ng-repeat='prop in view.data.comps'>
+                    <div class='col-md-6'>
+                      <div class='panel'>
+                        <div class='col-md-6'>
+                          <img ng-src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location={{prop.lat}},{{prop.lng}}&key=AIzaSyBdTlnuIm3BaESwJbfcIpbACvsgRh21UXg" />
+                        </div>
+                        <div class='col-md-6'>
+                          <p>BA: {{prop.bathrooms}}</p>
+                          <p>URL: {{prop.url}}</p>
+                          <p>BEDs: {{prop.bedrooms}}</p>
+                          <p>ACC: {{prop.accommodates}}</p>
+                          <p>GEO: {{prop.lat}} , {{prop.lng}}</p>
+                          <p>UID: {{prop.prop_id}}</p>
+                          <p>Distance: {{prop.distance_meters}} m</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
-            </div>
 
           </div>
 
