@@ -1,4 +1,4 @@
-var app = angular.module('AngularMovieDB', ['ngRoute']);
+var app = angular.module('NgAirdna', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
