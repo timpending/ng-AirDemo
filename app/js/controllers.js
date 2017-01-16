@@ -6,7 +6,7 @@ app.controller('SearchController', function($scope, $http, AddressSearchService,
   $scope.view.current = {display: false};
 
   $scope.submitSearch = function() {
-    if ($scope.searchAddress && $scope.searchAddress.address && $scope.searchAddress. zip) {
+    if ($scope.searchAddress && $scope.searchAddress.address && $scope.searchAddress.zip) {
       let url = AddressSearchService.createAPIURL($scope.searchAddress);
       AddressSearchService.searchForProperty(url).then(function(results){
         AddressSearchService.results = results.data
@@ -22,7 +22,7 @@ app.controller('SearchController', function($scope, $http, AddressSearchService,
     $scope.view.data = AddressSearchService.results
     $scope.view.current = AddressSearchService.results
     $scope.view.current.image = AddressSearchService.getCurrentStreetViewImg(AddressSearchService.results);
-    MapService.getMap(AddressSearchService.results);
+    $scope.view.current.latlng = AddressSearchService.results.property_details.lat+","+AddressSearchService.results.property_details.lng
     $scope.view.current.display = true;
   }
 
@@ -40,5 +40,5 @@ app.controller('SearchController', function($scope, $http, AddressSearchService,
       let average = (total / count);
       return average
     }
-    
+
 })

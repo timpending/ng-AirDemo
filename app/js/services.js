@@ -33,17 +33,13 @@ app.service('AddressSearchService', function($http, NgMap, $route){
   }
 })
 
-app.service('MapService', function($http){
+app.service('MapService', function($http, NgMap, $route){
   return {
     getMap: function(results){
-      let raw =   ``
-      $('#mapOutput').html(raw);
-
-
-
-      // NgMap.getMap().then(function(map) {
-      //
-      // });
+      console.log("in service");
+      NgMap.getMap().then(function(map) {
+        
+      });
       return results
     }
   }

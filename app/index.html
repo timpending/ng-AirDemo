@@ -42,87 +42,83 @@
             <input class='form-control' type='text' ng-model='searchAddress.searchAccom' name='accom' placeholder="Accomodates">
             <input class='btn btn-info' type='button' ng-click='submitSearch()' value='Find It'>
           </form>
+          <br>
           <div ng-if="view.error"><p>{{view.error}}</p></div>
           <input class='btn btn-warning' type='button' ng-click="showResults()" value='Show results'>
         </div>
-
-        <div ng-if="view.current.display" id="mapOutput" class="col-md-12">
-          <div map-lazy-load="https://maps.google.com/maps/api/js">
-              <ng-map center="39.717953,-104.985879" zoom="10">
-              </ng-map>
-            </div>
-        </div>
-
-
           <hr>
+        <div ng-if="view.current.display" id="mapOutput" class="col-md-12">
+
+        </div>
           <div class="container" ng-if="view.current.display">
-
-
+            <div class="row">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3>Rentalizer Results</h3>
               </div>
 
               <div class="panel-body">
-                <div class="row">
-                  <div class="col-md-10 col-md-offset-1">
-
-                  </div>
-                </div>
-                  <div class="row">
-                    <div class="center col-md-4">
-                      <h4>Address: {{view.current.property_details.address}} Zipcode: {{view.current.property_details.zipcode}} </h4>
+                  <div class="center row">
+                    <div class='col-md-4'>
+                      <h4>Housing Info:</h4>
                       <img src={{view.current.image}} />
+                      <h6><strong>Address:</strong> {{view.current.property_details.address}} {{view.current.property_details.zipcode}}</h6>
+                      <h6><strong>Bathrooms:</strong> {{view.current.property_details.bathrooms}}  <strong>Bedrooms:</strong> {{view.current.property_details.bedrooms}}</h6>
+                    </div>
+                    <div class="col-md-4">
+                    <div map-lazy-load="https://maps.google.com/maps/api/js">
+                        <ng-map id="resultMap" center="39.717953,-104.985879" zoom="12">
+                          <marker position="39.717953,-104.985879">
+                          </marker>
+                        </ng-map>
+                      </div>
                     </div>
                     <div class='col-md-4'>
-                      <p>Coords: {{view.current.property_details.lat}}, {{view.current.property_details.lng}}</p>
-                      <p>Zestimate: {{view.current.property_details.zestimate}}</p>
-                      <p>Current Bathroom: {{view.current.property_details.bathrooms}}</p>
-                      <p>Current Bedrooms: {{view.current.property_details.bedrooms}}</p>
-                      <p>Annual Project Revenue: {{view.current.revenue_potential.ltm | currency: "$":0 }}</p>
-                      <p>Predicted Occupancy Percentage: {{(view.current.occ_predicted.ltm*100) | number:0}}%</p>
-                      <p>Average Comparable Day Rate: {{view.current.adr_predicted.ltm | currency: "$"}}</p>
-                    </div>
-                    <div class='col-md-4'>
+                      <h4>Avg. Occupancy Percent:</h4>
                       <donut-chart id="chart">
                         <svg></svg>
                       </donut-chart>
+                      <br>
+                      <h6><strong>Annual Est. Revenue:</strong> {{view.current.revenue_potential.ltm | currency: "$":0 }}
+                      <span class="pull-right"><strong>Avg. Day Rate:</strong> {{view.current.adr_predicted.ltm | currency: "$"}}</span></h6>
                     </div>
                   </div>
                 </div>
           </div>
-            <br>
+            <hr>
 
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3>Comparable Properties</h3>
-                </div>
-                <div class="panel-body">
+                <div class="title text-left"><h1>Comparable Properties</h1></div>
+                <br>
                   <div ng-repeat='prop in view.data.comps'>
-                    <div class='col-md-6'>
-                      <div class='panel'>
+                  <div class='col-md-6'>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <strong>Avg. Daily Rates:</strong> {{ getAverage(prop.adr) | currency:"$":0}}</strong>
+                        <span class="pull-right" style="text-align:right"><strong>Revenue Potential:</strong> {{prop.revenue_potential.ltm[0] | currency:"$":0}}</strong></span>
+                      </div>
+                      <div class="panel-body">
                         <div class='col-md-6'>
                           <img ng-src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location={{prop.lat}},{{prop.lng}}&key=AIzaSyBdTlnuIm3BaESwJbfcIpbACvsgRh21UXg" />
                         </div>
                         <div class='col-md-6'>
-                          <p>BA: {{prop.bathrooms}}</p>
-                          <p>BEDs: {{prop.bedrooms}}</p>
-                          <p>ACC: {{prop.accommodates}}</p>
-                          <p>Occupancy Rates: {{ (getAverage(prop.occ) * 100) | number:0}}%</p>
-                          <p>Average Daily Rates: {{ getAverage(prop.adr) | currency:"$":0}}</p>
-                          <p>Revenue Potential: {{prop.revenue_potential.ltm[0] | currency:"$":0}}
-                          <p>URL: {{prop.url}}</p>
+                          <br>
+                          <h6><strong>Occupancy Rates: </strong>{{ (getAverage(prop.occ) * 100) | number:0}}%</h6>
+                          <h6><strong>Bathrooms: </strong>{{prop.bathrooms}}</h6>
+                          <h6><strong>Bedrooms: </strong>{{prop.bedrooms}}</h6>
+                          <h6><strong>Sleeps: </strong>{{prop.accommodates}}</h6>
+                          <!-- <p>URL: {{prop.url}}</p>
                           <p>GEO: {{prop.lat}} , {{prop.lng}}</p>
                           <p>UID: {{prop.prop_id}}</p>
-                          <p>Distance: {{prop.distance_meters}} m</p>
+                          <p>Distance: {{prop.distance_meters}} m</p> -->
                         </div>
                       </div>
                     </div>
                   </div>
+                  </div>
                 </div>
 
               </div>
-
+            </div>
           </div>
 
   </body>
