@@ -1,4 +1,4 @@
-var app = angular.module('NgAirdna', ['ngRoute']);
+var app = angular.module('NgAirdna', ['ngRoute', 'chart.js', 'chartjs-directive', 'ngMap']);
 
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider

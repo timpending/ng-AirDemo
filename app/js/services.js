@@ -1,4 +1,4 @@
-app.service('AddressSearchService', function($http){
+app.service('AddressSearchService', function($http, NgMap, $route){
   return {
   results: {},
   address: {},
@@ -30,5 +30,21 @@ app.service('AddressSearchService', function($http){
       return `${gMapsBaseURL}${middle}${end}`
     },
 
+  }
+})
+
+app.service('MapService', function($http){
+  return {
+    getMap: function(results){
+      let raw =   ``
+      $('#mapOutput').html(raw);
+
+
+
+      // NgMap.getMap().then(function(map) {
+      //
+      // });
+      return results
+    }
   }
 })

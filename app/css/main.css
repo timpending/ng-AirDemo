@@ -38,3 +38,10 @@
 .no-bg {
   background-color: transparent;
 }
+
+#chart svg{
+  height: 300px;
+  width: 300px;
+  min-height:100%;
+  min-width: 100%;
+}
