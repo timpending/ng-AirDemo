@@ -3,13 +3,21 @@ app.controller('SearchController', function($scope, $http, AddressSearchService,
   $scope.view = {};
   $scope.view.error = null;
   $scope.view.data = {};
+  $scope.searchAddress = {};
   $scope.view.current = {display: false};
 
   $scope.submitSearch = function() {
-    if ($scope.searchAddress && $scope.searchAddress.address && $scope.searchAddress.zip) {
+    if ($scope.searchAddress.address && $scope.searchAddress.zip) {
       let url = AddressSearchService.createAPIURL($scope.searchAddress);
       AddressSearchService.searchForProperty(url).then(function(results){
+        // show results
+        console.log("results: ", AddressSearchService.results);
         AddressSearchService.results = results.data
+        $scope.view.data = AddressSearchService.results
+        $scope.view.current = AddressSearchService.results
+        $scope.view.current.image = AddressSearchService.getCurrentStreetViewImg(AddressSearchService.results);
+        $scope.view.current.latlng = AddressSearchService.results.property_details.lat+","+AddressSearchService.results.property_details.lng
+        $scope.view.current.display = true;
       })
       $route.reload();
     } else {
